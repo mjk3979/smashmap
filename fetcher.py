@@ -33,3 +33,9 @@ def make_event_from_page(link):
     return event
 
 print(make_event_from_page('http://smashboards.com/threads/jun-15-2014-super-smash-sundays-east-coast-5-red-bank-new-jersey.356635/'))
+def get_links(src):
+    print("Fetch links for %s" % src)
+    f = urlopen(src)
+    soup = BeautifulSoup(f)
+    prefix = 'http://smashboards.com/'
+    return [prefix + a['href'] for a in soup.select(".listBlock.main a.PreviewTooltip")]
