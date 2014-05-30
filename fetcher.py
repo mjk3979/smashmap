@@ -16,6 +16,7 @@ def make_event_from_page(link):
     soup = BeautifulSoup(f)
     event = Event()
     main = soup.select(".sectionMain")[0]
+    event.link = link
 
     event.name = main.select(".subHeading")[0].get_text().strip()
 
