@@ -4,6 +4,8 @@ from bs4 import BeautifulSoup
 from event import Event
 import re
 from datetime import datetime
+import itertools
+import pickle
 
 regex_start = re.compile('start date:(.*(?:am|pm))', flags=re.I)
 regex_end = re.compile('end date:(.*(?:am|pm))', flags=re.I)
@@ -41,3 +43,14 @@ def get_links(src):
     soup = BeautifulSoup(f)
     prefix = 'http://smashboards.com/'
     return [prefix + a['href'] for a in soup.select(".listBlock.main a.PreviewTooltip")]
+
+links = itertools.chain(*[get_links('http://smashboards.com/forums/tournament-listings.51/page-%d' % i) for i in range(1,2)])
+events = []
+for link in links:
+    event = make_event_from_page(link)
+    print(event)
+    events.append(event)
+    print("-------------------------")
+
+with open('eventobjs.dat', 'wb') as f:
+    pickle.dump(events, f)
