@@ -2,6 +2,6 @@ Run `fetcher.py` to start server.
 
 Dependencies
 ---
-jinja2, turbogears2
+jinja2, turbogears2, beautifulsoup4
 
-Both can be installed using pip
+All can be installed using pip
