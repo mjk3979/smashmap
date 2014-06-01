@@ -1,6 +1,4 @@
 class Event(object):
-    __slots__=('name', 'start', 'end', 'location', 'link')
-
     def __init__(self):
         self.name = None
         self.start = None
