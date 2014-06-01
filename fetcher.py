@@ -47,7 +47,7 @@ def get_links(src):
     f = urlopen(src)
     soup = BeautifulSoup(f)
     prefix = 'http://smashboards.com/'
-    return [prefix + a['href'] for a in soup.select(".listBlock.main a.PreviewTooltip")]
+    return [prefix + a['href'] for a in soup.select(".discussionList .listBlock.main a.PreviewTooltip")]
 
 links = itertools.chain(*[get_links('http://smashboards.com/forums/tournament-listings.51/page-%d' % i) for i in range(1,2)])
 events = []
