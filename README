@@ -1,0 +1,7 @@
+Run `fetcher.py` to start server.
+
+Dependencies
+---
+jinja2, turbogear2
+
+Both can be installed using pip
