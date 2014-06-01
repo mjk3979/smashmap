@@ -6,12 +6,16 @@ import re
 from datetime import datetime
 import itertools
 import pickle
+import json
 
 regex_start = re.compile('start date:(.*(?:am|pm))', flags=re.I)
 regex_end = re.compile('end date:(.*(?:am|pm))', flags=re.I)
 date_format = '%b %d, %Y %I:%M %p'
 regex_loc = re.compile('maps\\.google\\.com/maps\\?q=(.*?)\\&amp;', flags=re.I)
 
+def geocode(location):
+    data = json.loads(urlopen('http://maps.googleapis.com/maps/api/geocode/json?%s' % urllib.parse.urlencode(dict(address=location))).read().decode())
+    return data['results'][0]['geometry']['location']
 
 def make_event_from_page(link):
     event = Event()
@@ -32,6 +36,7 @@ def make_event_from_page(link):
         event.end = datetime.strptime(send, date_format)
 
         event.location = urllib.parse.unquote_plus(regex_loc.search(str(main)).group(1).strip())
+        event.coords = geocode(event.location)
     except Exception:
         pass
 
