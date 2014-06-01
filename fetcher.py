@@ -36,7 +36,9 @@ def make_event_from_page(link):
         event.end = datetime.strptime(send, date_format)
 
         event.location = urllib.parse.unquote_plus(regex_loc.search(str(main)).group(1).strip())
-        event.coords = geocode(event.location)
+        if event.start is not None and event.start >= datetime.today() \
+            and event.location is not None:
+            event.coords = geocode(event.location)
     except Exception:
         pass
 

@@ -9,7 +9,8 @@ def fetchEvents():
 
     def eventFilter(event):
         return event.start is not None and event.start >= datetime.today() \
-            and event.location is not None
+            and event.location is not None \
+            and event.coords is not None
 
     if EVENTS_CACHE is None:
         with open('eventobjs.dat', 'rb') as f:
