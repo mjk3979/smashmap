@@ -32,9 +32,9 @@ def make_event_from_page(link):
         event.end = datetime.strptime(send, date_format)
 
         event.location = urllib.parse.unquote_plus(regex_loc.search(str(main)).group(1).strip())
-
-    except:
+    except Exception:
         pass
+
     return event
 
 def get_links(src):
